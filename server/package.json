@@ -1,10 +1,18 @@
 {
+  "name": "skillgraph-server",
+  "version": "1.0.0",
+  "description": "Backend for SkillGraph",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
   "dependencies": {
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
-    "driver": "^1.0.0",
     "express": "^5.2.1",
-    "neo4j": "^2.0.0-RC2"
+    "neo4j-driver": "^5.28.2"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
