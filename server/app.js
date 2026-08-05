@@ -5,6 +5,7 @@ import roleRoutes from "./routes/roleRoutes.js";
 import skillRoutes from "./routes/skillRoutes.js";
 import personRoutes from "./routes/personRoutes.js";
 import skillGapRoutes from "./routes/skillGapRoutes.js";
+import roadmapRoutes from "./routes/roadmapRoutes.js";
 
 
 const app = express();
@@ -16,5 +17,6 @@ app.use("/api/roles", roleRoutes);
 app.use("/api/skills", skillRoutes);
 app.use("/api/persons",personRoutes);
 app.use("/api/skill-gap", skillGapRoutes);
+app.use("/api/roadmap",roadmapRoutes);
 
 export default app;
