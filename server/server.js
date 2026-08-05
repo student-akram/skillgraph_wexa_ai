@@ -1,10 +1,17 @@
-import dotenv from "dotenv";
-dotenv.config();
+import driver from "./config/graph.js";
 
-import app from "./app.js";
+async function test() {
 
-const PORT = process.env.PORT || 5000;
+    const session = driver.session();
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-});
+    const result = await session.run(`
+        MATCH (n)
+        RETURN count(n) AS total
+    `);
+
+    console.log(result.records[0].get("total").toString());
+
+    await session.close();
+}
+
+test();
