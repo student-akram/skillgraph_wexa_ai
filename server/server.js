@@ -1,21 +1,13 @@
-import driver from "./config/graph.js";
+import dotenv from "dotenv";
 
-async function testConnection() {
-    const session = driver.session();
+dotenv.config();
 
-    try {
-        const result = await session.run(
-            "RETURN 'Connected Successfully 🚀' AS message"
-        );
+import app from "./app.js";
 
-        console.log(result.records[0].get("message"));
-    } catch (error) {
-        console.error("Database Connection Failed");
-        console.error(error.message);
-    } finally {
-        await session.close();
-        await driver.close();
-    }
-}
+const PORT = process.env.PORT || 5000;
 
-testConnection();
+app.listen(PORT, () => {
+
+    console.log(`Server Running on Port ${PORT}`);
+
+});
