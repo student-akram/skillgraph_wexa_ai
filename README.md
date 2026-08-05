@@ -2,49 +2,59 @@
 
 A Full Stack Career Roadmap & Mentor Recommendation Platform powered by **CognoDB Graph Database**.
 
-SkillGraph helps developers identify the skills required for their target job role, discover missing skills, generate a learning roadmap using graph traversal, and find mentors who already possess those skills.
+SkillGraph helps users identify the skills required for their target role, discover missing skills, generate a learning roadmap using graph traversal, and find mentors who already possess those skills.
+
+---
+
+# 🌐 Live Demo
+
+### Frontend (Vercel)
+
+https://skillgraph-wexa-ai-vnl8-b6nnm402k-shaikakrams-projects.vercel.app/
+
+### Backend API (Render)
+
+https://skillgraph-wexa-ai-1.onrender.com/
+
+### GitHub Repository
+
+https://github.com/student-akram/skillgraph_wexa_ai
 
 ---
 
 # 📌 Problem Statement
 
-Many developers know the role they want (Frontend Developer, AI Engineer, Backend Developer, etc.) but don't know:
+Many developers know the career role they want to pursue (Frontend Developer, Backend Developer, AI Engineer, etc.), but often struggle to answer questions like:
 
-- Which skills they are missing
-- What order they should learn those skills
-- Who can mentor them
+- Which skills am I missing?
+- In what order should I learn those skills?
+- Who can guide me as a mentor?
 
-Traditional relational databases can store this information, but answering questions involving relationships becomes increasingly complex as the data grows.
+Traditional relational databases can store this information, but querying complex relationships requires multiple JOIN operations, making it difficult to scale.
 
-This project solves that problem using a **Graph Database**.
+SkillGraph solves this problem using a **Graph Database**.
 
 ---
 
 # 🎯 Why Graph Database?
 
-The interesting part of this application is not the data itself.
-
-It is the **relationships** between:
-
-- People
-- Skills
-- Roles
+The core of this application is **relationships**, not just data.
 
 Example:
 
+```
 Python
-↓
+   ↓
 Machine Learning
-↓
+   ↓
 Deep Learning
-↓
+   ↓
 LLMs
-↓
+   ↓
 AI Agents
+```
 
-These prerequisite chains are naturally represented as graphs.
-
-A graph database makes relationship traversal much simpler than SQL joins.
+Graph databases naturally represent these prerequisite chains and allow efficient traversal without complex SQL joins.
 
 ---
 
@@ -58,35 +68,76 @@ A graph database makes relationship traversal much simpler than SQL joins.
 
 ## Relationships
 
-Person
---HAS_SKILL-->
-Skill
+```
+(Person)
+    │
+HAS_SKILL
+    ▼
+(Skill)
 
-Role
---REQUIRES_SKILL-->
-Skill
+(Role)
+    │
+REQUIRES_SKILL
+    ▼
+(Skill)
 
-Skill
---PREREQUISITE_FOR-->
-Skill
+(Skill)
+    │
+PREREQUISITE_FOR
+    ▼
+(Skill)
+```
+
+---
+
+# 🔄 Application Workflow
+
+```
+User
+
+↓
+
+Select Target Role
+
+↓
+
+Select Current Skills
+
+↓
+
+Backend (Express.js)
+
+↓
+
+CognoDB Graph Database
+
+↓
+
+Cypher Queries
+
+↓
+
+Missing Skills
+Learning Roadmap
+Mentor Recommendation
+
+↓
+
+Display Results
+```
 
 ---
 
 # ✨ Features
 
-✅ View Available Roles
-
-✅ View Available Skills
-
-✅ Skill Gap Analysis
-
-✅ Learning Roadmap
-
-✅ Mentor Recommendation
-
-✅ Graph Traversal using Cypher
-
-✅ CognoDB Integration
+- View Available Roles
+- View Available Skills
+- Skill Gap Analysis
+- Learning Roadmap Generation
+- Mentor Recommendation
+- Graph Traversal using Cypher
+- CognoDB Integration
+- Responsive User Interface
 
 ---
 
@@ -94,17 +145,17 @@ Skill
 
 ## Frontend
 
-- React
+- React.js
 - Vite
 - Axios
-- CSS
+- CSS3
 - Lucide React
 
 ## Backend
 
 - Node.js
 - Express.js
-- Neo4j Driver
+- Neo4j JavaScript Driver
 
 ## Database
 
@@ -117,36 +168,41 @@ Skill
 
 ```
 skillgraph/
-│
+
 ├── client/
+│   ├── src/
+│   ├── public/
+│   └── package.json
 │
 ├── server/
 │   ├── config/
 │   ├── controllers/
 │   ├── routes/
-│   ├── queries/
 │   ├── services/
+│   ├── queries/
 │   ├── scripts/
-│   └── utils/
+│   ├── utils/
+│   └── package.json
 │
 ├── docs/
+│   └── screenshots/
 │
 └── README.md
 ```
 
 ---
 
-# ⚙ Installation
+# ⚙️ Installation
 
 ## Clone Repository
 
 ```bash
-git clone <https://github.com/student-akram/skillgraph_wexa_ai>
+git clone https://github.com/student-akram/skillgraph_wexa_ai.git
 ```
 
 ---
 
-## Backend
+## Backend Setup
 
 ```bash
 cd server
@@ -160,7 +216,7 @@ npm run dev
 
 ---
 
-## Frontend
+## Frontend Setup
 
 ```bash
 cd client
@@ -174,9 +230,9 @@ npm run dev
 
 # 🔐 Environment Variables
 
-Create a `.env` file inside the server folder.
+Create a `.env` file inside the **server** folder.
 
-```
+```env
 COGNODB_URI=
 
 COGNODB_USERNAME=cognodb
@@ -188,9 +244,15 @@ PORT=5000
 
 ---
 
-# 🌱 Seed Data
+# 🌱 Seed Database
 
-The project includes a seed script that creates:
+Populate the database with sample data.
+
+```bash
+npm run seed
+```
+
+The seed script creates:
 
 - Roles
 - Skills
@@ -198,61 +260,23 @@ The project includes a seed script that creates:
 - Skill Relationships
 - Role Relationships
 
-Run
-
-```bash
-npm run seed
-```
-
-to populate the database.
-
 ---
 
 # 📡 API Endpoints
 
-## Roles
-
-```
-GET /api/roles
-```
-
----
-
-## Skills
-
-```
-GET /api/skills
-```
-
----
-
-## Skill Gap
-
-```
-POST /api/skill-gap
-```
-
----
-
-## Mentors
-
-```
-POST /api/mentors
-```
-
----
-
-## Learning Roadmap
-
-```
-GET /api/roadmap/:skill
-```
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/api/roles` | Get all roles |
+| GET | `/api/skills` | Get all skills |
+| POST | `/api/skill-gap` | Find missing skills |
+| POST | `/api/mentors` | Get mentor recommendations |
+| GET | `/api/roadmap/:skill` | Generate learning roadmap |
 
 ---
 
 # 🔍 Main Cypher Queries
 
-## Find Required Skills
+## Required Skills
 
 ```cypher
 MATCH (r:Role {id:$roleId})-[:REQUIRES_SKILL]->(s)
@@ -273,7 +297,8 @@ RETURN p
 ## Learning Roadmap
 
 ```cypher
-MATCH path=(start:Skill)-[:PREREQUISITE_FOR*]->(target:Skill{name:$skill})
+MATCH path =
+(start:Skill)-[:PREREQUISITE_FOR*]->(target:Skill {name:$skill})
 RETURN path
 ```
 
@@ -283,45 +308,57 @@ RETURN path
 
 ## Home Page
 
-(Add Screenshot)
+```
+docs/screenshots/home.jpeg
+```
 
 ---
-
-## Skill Gap Analysis
-
-(Add Screenshot)
-
+## AvailableRoles
+```
+docs/screenshots/availableRoles.jpeg
+```
 ---
 
-## Mentor Recommendation
 
-(Add Screenshot)
 
 ---
 
 ## Learning Roadmap
 
-(Add Screenshot)
+```
+docs/screenshots/missingSkills.jpeg
+```
+
+---
+
+## Mentor Recommendation
+
+```
+docs/screenshots/RecommendedMentor.jpeg
+```
 
 ---
 
 # 🚀 Future Improvements
 
 - Admin Dashboard
-- Authentication
-- CRUD for Skills
-- CRUD for Roles
-- CRUD for Mentors
-- AI Powered Mentor Ranking
+- Authentication & Authorization
+- Add/Edit/Delete Roles
+- Add/Edit/Delete Skills
+- Add/Edit/Delete Mentors
+- Upload Mentor Profiles
+- AI-Based Mentor Ranking
 - Personalized Learning Paths
+- Progress Tracking
+- Resume Skill Matching
 
 ---
 
 # 💡 Why This Project?
 
-This project demonstrates how graph databases can efficiently model and query highly connected data.
+SkillGraph demonstrates how graph databases efficiently model highly connected data.
 
-Instead of relying on multiple SQL joins, graph traversal enables efficient exploration of relationships between skills, mentors, and career roles, making it an ideal solution for career recommendation systems.
+Instead of relying on multiple SQL JOIN operations, graph traversal enables efficient exploration of relationships between skills, mentors, and career roles, making it an ideal solution for career recommendation systems.
 
 ---
 
@@ -330,4 +367,11 @@ Instead of relying on multiple SQL joins, graph traversal enables efficient expl
 **Shaik Akram**
 
 GitHub:
+
 https://github.com/student-akram
+
+---
+
+# 📄 License
+
+This project is developed for the **Wexa AI CognoDB Assignment** and is intended for educational and demonstration purposes.
