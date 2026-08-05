@@ -1,25 +1,42 @@
 import driver from "../config/graph.js";
-import { GET_ALL_ROLES } from "../queries/roleQueries.js";
+import {
+  GET_ALL_ROLES,
+  GET_ROLE_BY_ID
+} from "../queries/roleQueries.js";
 
 export const getAllRoles = async () => {
+  const session = driver.session();
 
-    const session = driver.session();
+  try {
+    const result = await session.run(GET_ALL_ROLES);
 
-    try {
+    return result.records.map(record => record.get("r").properties);
 
-        const result = await session.run(GET_ALL_ROLES);
+  } finally {
+    await session.close();
+  }
+};
 
-        return result.records.map(record => {
+export const getRoleById = async (id) => {
 
-            return record.get("r").properties;
+  const session = driver.session();
 
-        });
+  try {
 
-    }
-    finally {
+    const result = await session.run(
+      GET_ROLE_BY_ID,
+      { id }
+    );
 
-        await session.close();
+    if (result.records.length === 0)
+      return null;
 
-    }
+    return result.records[0].get("r").properties;
 
-}
+  } finally {
+
+    await session.close();
+
+  }
+
+};
