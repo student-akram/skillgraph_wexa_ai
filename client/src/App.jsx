@@ -5,7 +5,7 @@ import Roles from "./pages/Roles";
 
 
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+
 
 
 function App() {
